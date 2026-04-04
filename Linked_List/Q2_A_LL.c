@@ -66,6 +66,7 @@ int main()
 		case 1:
 			printf("Input an integer that you want to add to the linked list 1: ");
 			scanf("%d", &i);
+			printf("\n\n\ni: %d\n\n\n", i);
 			j = insertNode(&ll1, ll1.size, i);
 			printf("Linked list 1: ");
 			printList(&ll1);
@@ -104,6 +105,28 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+	ListNode *p1, *p2;
+	p1 = ll1->head;
+	p2 = ll2->head;
+	ListNode *next1, *next2;
+
+	int count = 0;
+	while(p1 != NULL && p2 != NULL){
+		next1 = p1->next;
+		next2 = p2->next;
+
+		p1->next = p2;
+		p2->next = next1;
+
+		p1 = next1; // next1 너가 이제부터 p1이여
+		p2 = next2; // next2 너는 이제부터 p2여
+
+		count++;
+	}
+	ll2->head = p2; // 남은 노드의 head 지정
+	
+	ll1->size += count;
+	ll2->size -= count;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
