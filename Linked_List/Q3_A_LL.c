@@ -87,6 +87,61 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	
+	/* LinkedList *oddList;
+
+	ListNode *cur;
+	// 계속 돌면서, ll에 짝수만 남겨두고, 홀수는 oddList에 저장
+	while(1){
+		if (cur->item%2 == 1){
+			insertNode(oddList, cur);
+			removeNode(ll, cur);
+		}
+		if(cur != NULL){ // oddList를 ll 뒤에 이어붙이고 while문 탈출
+			break;
+		}
+	} */
+
+	ListNode *next1, *cur = ll->head;
+	ListNode *evenHead = NULL, *evenEnd = NULL;
+	ListNode *oddHead = NULL, *oddEnd = NULL;
+
+	while(cur != NULL){
+		next1 = cur->next;// ll head의 바로 다음에 next1 붙임
+		cur->next = NULL;
+		if(cur->item%2 == 0){ //짝수라면
+			if(evenHead == NULL){ //even 포인터가 비어있다면
+				evenHead = cur;
+				evenEnd = cur;
+			}
+			else{
+				evenEnd->next = cur; //맨 뒤에 cur을 붙이고
+				evenEnd = cur; //End. 넌 이제 cur을 가리키는 거여.
+			}
+		}
+		else{ //홀수라면
+			if(oddHead == NULL){ //odd 포인터가 비어있다면
+				oddHead = cur;
+				oddEnd = cur;
+			}
+			else{
+				oddEnd->next = cur; //맨 뒤에 cur을 붙이고
+				oddEnd = cur; //End. 넌 이제 cur을 가리키는 거여.
+			}
+		}
+		cur = next1;
+	}
+
+	if(evenHead == NULL){
+		ll->head = oddHead;
+	}
+	else if(oddHead == NULL){
+		ll->head = evenHead;
+	}
+	else{
+		ll->head = evenHead;
+		evenEnd->next = oddHead;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
