@@ -87,6 +87,47 @@ int main()
 void moveEvenItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	ListNode *oddHead = NULL, *oddEnd = NULL;
+	ListNode *evenHead = NULL, *evenEnd = NULL;
+	
+	ListNode *next1, *cur;
+
+	cur = ll->head;
+	while(cur != NULL){
+		next1 = cur->next;
+		cur->next = NULL; //이걸 안 해주면, 아래에서 cur을 붙일 때, 꼬일 수 있음. cur이라는 노드를 기존 리스트에서 완전히 떼어난다는 의미. 이걸 안 하면 현재 노드를 붙일 때, 그 뒤에 있던 노드들까지 같이 딸려온다.
+		if(cur->item%2 == 1){ //cur이 홀수라면
+			if(oddHead == NULL){
+				oddHead = cur;
+				oddEnd = cur;
+			}
+			else{
+				oddEnd->next = cur;
+				oddEnd = cur;
+			}
+		}
+		else { //cur이 짝수라면
+			if(evenHead == NULL){
+				evenHead = cur;
+				evenEnd = cur;
+			}
+			else{
+				evenEnd->next = cur;
+				evenEnd = cur;
+			}
+		}
+		cur = next1;
+	}
+	if(oddHead == NULL){
+		ll->head = evenHead;
+	}
+	else if(evenHead == NULL){
+		ll->head = oddHead;
+	}
+	else{
+		ll->head = oddHead;
+		oddEnd->next = evenHead;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
