@@ -117,6 +117,15 @@ int main()
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
 	/* add your code here */
+	ListNode *cur = ll->head, *next;
+	
+	while(cur != NULL){
+		next = cur->next;
+		enqueue(q, cur->item);
+		// 미래를 위한 투자 
+		cur = next; 
+	}
+	
 }
 
 void removeOddValues(Queue *q)
