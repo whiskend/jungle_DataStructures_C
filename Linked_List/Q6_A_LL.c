@@ -86,9 +86,33 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
-int moveMaxToFront(ListNode **ptrHead)
+int moveMaxToFront(ListNode **ptrHead) // head의 주소만 있어도 연결된 노드들에 접근 가능
 {
     /* add your code here */
+	ListNode *pre = *ptrHead, *cur = (*ptrHead)->next, *next1;
+	ListNode *max = *ptrHead, *maxPre, *maxNext;
+
+	while(cur != NULL){
+		next1 = cur->next;//미래 설정
+
+		if(max->item < cur->item){
+			max = cur;
+			maxPre = pre;
+			maxNext = next1;
+		}
+		
+		//시간 여행 시작
+		pre = cur; //현재 노드가 과거 노드로 됨
+		cur = next1;//미래로 슛!
+	}
+	if(max == *ptrHead) return 0;
+	else{
+		maxPre->next = maxNext;
+		max->next = *ptrHead;
+		*ptrHead = max;
+		
+		return 0;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
