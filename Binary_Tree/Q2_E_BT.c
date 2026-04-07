@@ -98,6 +98,21 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+
+    if (node == NULL){
+        return -1;
+    }
+    int left = maxHeight(node -> left);
+    int right = maxHeight(node -> right);
+
+    if(left>right){ // 왼쪽이 큰 경우는 오른쪽이 널인 경우겠지.
+        return left+1; // left+1 해서 위에 스택으로 올려줘야겠지.
+    }
+    else{
+        return right+1;
+    }
+    
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
